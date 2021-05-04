@@ -13,6 +13,13 @@ namespace Invector.vCharacterController
 
         #endregion  
 
+        public PlayerSounds playerSounds;
+
+        private void Start()
+        {
+            playerSounds = GetComponent<PlayerSounds>();
+        }
+
         public virtual void UpdateAnimator()
         {
             if (animator == null || !animator.enabled) return;
@@ -42,6 +49,7 @@ namespace Invector.vCharacterController
             horizontalSpeed = relativeInput.x;
 
             var newInput = new Vector2(verticalSpeed, horizontalSpeed);
+            playerSounds.magnitudeVelocity = newInput.magnitude;
 
             if (speed.walkByDefault)
                 inputMagnitude = Mathf.Clamp(newInput.magnitude, 0, isSprinting ? runningSpeed : walkSpeed);
